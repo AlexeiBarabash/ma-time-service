@@ -104,14 +104,14 @@ spec:
                    name 'helm'
                    image 'alexeibarabash/moonactive-services:jenkins-custom-slave-v1'
                    ttyEnabled true
-                   command 'cat'
+                   command 'ls'
               }
             }
           }
           steps {
             container('helm') { 
                  checkout scm
-                 sh "helm upgrade -i ${container_name} ./k8s/ma-service --set image.repository=${registry},image.tag=${container_name}-$BUILD_NUMBER"
+                 sh "helm upgrade -i ${container_name} ./k8s/ma-service --namespace default --set image.repository=${registry},image.tag=${container_name}-$BUILD_NUMBER"
                } 
           }
         }
