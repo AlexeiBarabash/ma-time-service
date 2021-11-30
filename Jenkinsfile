@@ -29,8 +29,6 @@
 //         }
 //     }
 // }
-#!groovy
-
 def podLabel = "kaniko-${UUID.randomUUID().toString()}"
 
 pipeline {
