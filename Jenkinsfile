@@ -97,6 +97,28 @@ spec:
             }
           }
         }
+        state('Deplyo Helm') {
+          agent {
+           kubernetes {
+              containerTemplate {
+                   name 'helm'
+                   image 'alexeibarabash/moonactive-services:jenkins-custom-slave-v1'
+                   ttyEnabled true
+                   command 'cat'
+              }
+            }
+          }
+          stage('Checkout Helm Code') {
+            steps {
+              checkout scm
+            }
+          }
+          steps {
+            container('helm') { 
+                 sh "helm upgrade -i ${container_name} ./k8s/ma-service --set image.repository=${registry},image.tag=${container_name}-$BUILD_NUMBER"
+               } 
+          }
+        }
 
     }
 }
