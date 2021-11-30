@@ -97,7 +97,7 @@ spec:
             }
           }
         }
-        state('Deplyo Helm') {
+        stage('Deploy Helm') {
           agent {
            kubernetes {
               containerTemplate {
@@ -108,13 +108,9 @@ spec:
               }
             }
           }
-          stage('Checkout Helm Code') {
-            steps {
-              checkout scm
-            }
-          }
           steps {
             container('helm') { 
+                 checkout scm
                  sh "helm upgrade -i ${container_name} ./k8s/ma-service --set image.repository=${registry},image.tag=${container_name}-$BUILD_NUMBER"
                } 
           }
