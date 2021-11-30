@@ -79,7 +79,7 @@ spec:
           steps {
             container('helm') { 
                  checkout scm
-                 sh "helm upgrade -i ${container_name} ./k8s/ma-services --namespace default --set image.repository=${registry},image.tag=${container_name}-$BUILD_NUMBER"
+                 sh "helm upgrade -i ${container_name} ./k8s/ma-services --namespace default --set image.repository=${registry},image.tag=${container_name}-$BUILD_NUMBER --wait"
                } 
           }
         }
